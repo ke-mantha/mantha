@@ -17,15 +17,11 @@ simpleGit.init(() => {
       rimraf.sync(path.join(tmpDirPath, '.git'));
       console.log('ok');
       console.log('copyFileSync...');
-      ncp(path.join(tmpDirPath, '.'), process.env.PWD, function (err) {
-        if (err) {
-          return console.error(err);
-        }
-        console.log('ok');
-        console.log(`rimraf ${tmpDirPath} ...`);
-        rimraf.sync(path.join(tmpDirPath));
-        console.log('ok');
-       });
+      fs.copyFileSync(path.join(tmpDirPath, '.'), process.env.PWD);
+      console.log('ok');
+      console.log(`rimraf ${tmpDirPath} ...`);
+      rimraf.sync(tmpDirPath);
+      console.log('ok');
     })
   })
 });
