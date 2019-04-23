@@ -23,9 +23,10 @@ simpleGit.init(() => {
         }
         console.log('ok');
         console.log(`removing temp dir at ${tmpDirPath} ...`);
-        rimraf(tmpDirPath);
-        console.log('ok');
-       });
+        rimraf(tmpDirPath, () => {
+          console.log('ok');
+        });
+      });
     })
   })
 });
