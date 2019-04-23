@@ -15,20 +15,21 @@ simpleGit.init(() => {
     simpleGit.pull('origin', 'master', {}, () => {
       console.log(`removing .git...`);
       rimraf(path.join(tmpDirPath, '.git'), () => {
-        console.log('ok\r');
+        console.log('ok\r\r');
         console.log('copying files...');
         ncp(path.join(tmpDirPath, '.'), process.env.PWD, function (err) {
           if (err) {
             return console.error(err);
           }
-          console.log('ok\r');
+          console.log('ok\r\r');
           console.log(`removing temp dir at ${tmpDirPath} ...`);
           rimraf(tmpDirPath, () => {
-            console.log('ok\r');
-            console.log('installing environment...');
-            rimraf.sync(path.join(process.env.PWD, 'package-lock.json'));
-            const exec = require('child_process').exec;
-            child = exec(`cd ${process.env.PWD} && npm i`).stderr.pipe(process.stderr);
+            console.log('ok\r\r');
+            rimraf(path.join(process.env.PWD, 'package-lock.json'), () => {
+              rimraf(path.join(process.env.PWD, 'node_modules'), () => {
+                console.log('installing environment...');
+              });
+            });
           });
         });
       });
