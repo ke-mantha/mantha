@@ -1,0 +1,25 @@
+{
+  "name": "@mantha/core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "git clone https://github.com/ke-mantha/mantha-template-default.git $INIT_CWD/. && rm -rf $INIT_CWD/.git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ke-mantha/mantha.git"
+  },
+  "author": "kaskar2008",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ke-mantha/mantha/issues"
+  },
+  "homepage": "https://github.com/ke-mantha/mantha#readme"
+}
