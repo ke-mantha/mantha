@@ -28,6 +28,8 @@ simpleGit.init(() => {
             rimraf(path.join(process.env.PWD, 'package-lock.json'), () => {
               rimraf(path.join(process.env.PWD, 'node_modules'), () => {
                 console.log('installing environment...');
+                var child_process = require('child_process');
+                child_process.execSync(`cd ${process.env.PWD} && npm i`, {stdio:[0,1,2]});  
               });
             });
           });
