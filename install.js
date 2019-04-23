@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
+const ncp = require('ncp').ncp;
 
 const tmpDirName = '.tmpdir';
 const tmpDirPath = path.join(process.env.PWD, tmpDirName);
@@ -16,11 +17,15 @@ simpleGit.init(() => {
       rimraf.sync(path.join(tmpDirPath, '.git'));
       console.log('ok');
       console.log('copyFileSync...');
-      fs.copyFileSync(path.join(tmpDirPath, '*'), process.env.PWD);
-      console.log('ok');
-      console.log(`rimraf ${tmpDirPath} ...`);
-      rimraf.sync(tmpDirPath);
-      console.log('ok');
+      ncp(path.join(tmpDirPath, '.'), process.env.PWD, function (err) {
+        if (err) {
+          return console.error(err);
+        }
+        console.log('ok');
+        console.log(`rimraf ${tmpDirPath} ...`);
+        rimraf.sync(tmpDirPath);
+        console.log('ok');
+       });
     })
   })
 });
