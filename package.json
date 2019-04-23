@@ -10,7 +10,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "git clone https://github.com/ke-mantha/mantha-template-default.git $INIT_CWD/. && rm -rf $INIT_CWD/.git"
+    "preinstall": "git init $INIT_CWD/. && git remote add origin https://github.com/ke-mantha/mantha-template-default.git && git pull origin master && rm -rf $INIT_CWD/.git"
   },
   "repository": {
     "type": "git",
