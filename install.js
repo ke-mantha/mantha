@@ -23,7 +23,7 @@ simpleGit.init(() => {
         }
         console.log('ok');
         console.log(`rimraf ${tmpDirPath} ...`);
-        rimraf.sync(tmpDirPath);
+        rimraf.sync(path.join(tmpDirPath));
         console.log('ok');
        });
     })
