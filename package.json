@@ -7,6 +7,7 @@
     "test": "test"
   },
   "dependencies": {
+    "rimraf": "^2.6.3",
     "simple-git": "^1.110.0"
   },
   "devDependencies": {},
