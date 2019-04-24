@@ -3,6 +3,8 @@ const path = require('path');
 const rimraf = require('rimraf');
 const ncp = require('ncp').ncp;
 
+console.log('CWD ', process.cwd())
+
 const projectDir = path.join(process.cwd(), '../../');
 const tmpDirName = '.tmpdir';
 const tmpDirPath = path.join(projectDir, tmpDirName);
