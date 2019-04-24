@@ -15,34 +15,32 @@ fs.mkdirSync(tmpDirPath);
 const simpleGit = require('simple-git')(tmpDirPath);
 
 simpleGit.init(() => {
+  // Clear console
+  process.stdout.write('\x1B[2J\x1B[0f');
+  
   console.log(`installing template...`);
   console.log('ok');
   console.log('');
   simpleGit.addRemote('origin', 'https://github.com/ke-mantha/mantha-template-default.git', () => {
     simpleGit.pull('origin', 'master', {}, () => {
-      console.log(`removing .git...`);
-      rimraf(path.join(tmpDirPath, '.git'), () => {
+      console.log('copying files...');
+      ncp(path.join(tmpDirPath, '.'), projectDir, function (err) {
+        if (err) {
+          return console.error(err);
+        }
         console.log('ok');
         console.log('');
-        console.log('copying files...');
-        ncp(path.join(tmpDirPath, '.'), projectDir, function (err) {
-          if (err) {
-            return console.error(err);
-          }
+        console.log(`removing temp dir at ${tmpDirPath} ...`);
+        rimraf(tmpDirPath, () => {
           console.log('ok');
           console.log('');
-          console.log(`removing temp dir at ${tmpDirPath} ...`);
-          rimraf(tmpDirPath, () => {
+          console.log(`removing package-lock.json ...`);
+          rimraf(path.join(projectDir, 'package-lock.json'), () => {
             console.log('ok');
             console.log('');
-            console.log(`removing package-lock.json ...`);
-            rimraf(path.join(projectDir, 'package-lock.json'), () => {
-              console.log('ok');
-              console.log('');
-              console.log('installing environment...');
-              var child_process = require('child_process');
-              child_process.execSync(`cd ${projectDir} && npm i`, { stdio: [0, 1, 2] });
-            });
+            console.log('installing environment...');
+            var child_process = require('child_process');
+            child_process.execSync(`cd ${projectDir} && npm i`, { stdio: [0, 1, 2] });
           });
         });
       });
