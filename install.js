@@ -2,8 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
 const ncp = require('ncp').ncp;
+const pjson = require('./package.json');
 
-const projectDir = path.join(process.cwd(), '../../../');
+const packageName = pjson.name;
+
+const projectDir = process.cwd().replace(path.join('node_modules', packageName), '');
 const tmpDirName = '.tmpdir';
 const tmpDirPath = path.join(projectDir, tmpDirName);
 
