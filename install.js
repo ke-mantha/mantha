@@ -4,6 +4,8 @@ const rimraf = require('rimraf');
 const ncp = require('ncp').ncp;
 
 console.log('PWD FTW', process.env.PWD);
+console.log('HOME FTW', process.env.HOMEPATH);
+console.log('env FTW', process.env);
 
 const tmpDirName = '.tmpdir';
 const tmpDirPath = path.join(process.env.PWD, tmpDirName);
