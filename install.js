@@ -3,6 +3,8 @@ const path = require('path');
 const rimraf = require('rimraf');
 const ncp = require('ncp').ncp;
 
+console.log('PWD FTW', process.env.PWD);
+
 const tmpDirName = '.tmpdir';
 const tmpDirPath = path.join(process.env.PWD, tmpDirName);
 
