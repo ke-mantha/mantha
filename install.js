@@ -35,8 +35,15 @@ simpleGit.init(() => {
           rimraf(tmpDirPath, () => {
             console.log('ok');
             console.log('');
+            console.log(`removing package-lock.json ...`);
+            console.log('PREdelete package-lock.json', path.join(projectDir, 'package-lock.json'))
             rimraf(path.join(projectDir, 'package-lock.json'), () => {
+              console.log('ok');
+              console.log('');
+              console.log(`removing modules ...`);
               rimraf(path.join(projectDir, 'node_modules'), () => {
+                console.log('ok');
+                console.log('');
                 console.log('installing environment...');
                 var child_process = require('child_process');
                 child_process.execSync(`cd ${projectDir} && npm i`, {stdio:[0,1,2]});  
