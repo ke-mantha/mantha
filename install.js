@@ -38,14 +38,13 @@ function cloneTemplate(name) {
 
 function copyTemplate(dest = projectDir) {
   console.log(`Deploying template...`);
-  shell.cp('-R', `${tmpDirPath}/`, dest);
+  shell.cp('-R', `${tmpDirPath}/.`, dest);
   console.log('');
 }
 
 function cleanTheMess() {
   console.log(`Cleaning the mess...`);
   shell.rm('-rf', tmpDirPath);
-  shell.rm(path.join(projectDir, 'package-lock.json'));
   console.log('');
 }
 
