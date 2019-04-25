@@ -15,7 +15,7 @@ const tmpDirName = '.tmpdir';
 const tmpDirPath = path.join(__dirname, tmpDirName);
 
 function entry() {
-  clearConsole();
+  // clearConsole();
   cloneTemplate('default');
   copyTemplate();
   cleanTheMess();
