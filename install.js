@@ -36,9 +36,20 @@ function cloneTemplate(name) {
   console.log('');
 }
 
+function filesToCopy(list = []) {
+  const result = [];
+  list.forEach(el => {
+    result.push(path.join(tmpDirPath, el));
+  });
+  return result;
+}
+
 function copyTemplate(dest = projectDir) {
   console.log(`Deploying template...`);
-  shell.cp('-Rf', path.join(tmpDirPath, '*'), dest);
+  shell.cp('-Rf', filesToCopy([
+    '.*',
+    '*'
+  ]), dest);
   console.log('');
 }
 
