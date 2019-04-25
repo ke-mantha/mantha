@@ -38,7 +38,7 @@ function cloneTemplate(name) {
 
 function copyTemplate(dest = projectDir) {
   console.log(`Deploying template...`);
-  shell.cp(path.join(tmpDirPath, '.'), dest);
+  shell.cp('-Rf', path.join(tmpDirPath, '*'), dest);
   console.log('');
 }
 
