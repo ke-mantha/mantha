@@ -1,49 +1,58 @@
-const fs = require('fs');
+const shell = require('shelljs');
+
+if (!shell.which('git')) {
+  shell.echo('Sorry, this script requires git');
+  shell.exit(1);
+}
+
 const path = require('path');
-const rimraf = require('rimraf');
-const ncp = require('ncp').ncp;
 const pjson = require('./package.json');
 
 const packageName = pjson.name;
 
 const projectDir = process.cwd().replace(path.join('node_modules', packageName), '');
 const tmpDirName = '.tmpdir';
-const tmpDirPath = path.join(projectDir, tmpDirName);
+const tmpDirPath = path.join(__dirname, tmpDirName);
 
-fs.mkdirSync(tmpDirPath);
+function entry() {
+  clearConsole();
+  cloneTemplate('default');
+  copyTemplate();
+  cleanTheMess();
+  final();
+}
 
-const simpleGit = require('simple-git')(tmpDirPath);
-
-simpleGit.init(() => {
+function clearConsole() {
   // Clear console
   process.stdout.write('\x1B[2J\x1B[0f');
-  
-  console.log(`installing template...`);
-  console.log('ok');
+}
+
+function cloneTemplate(name) {
+  console.log(`Installing template...`);
+  if (shell.exec(`git clone https://github.com/ke-mantha/mantha-template-${name}.git ${tmpDirName}`).code !== 0) {
+    shell.echo('Error: Git template clone failed');
+    shell.exit(1);
+  }
   console.log('');
-  simpleGit.addRemote('origin', 'https://github.com/ke-mantha/mantha-template-default.git', () => {
-    simpleGit.pull('origin', 'master', {}, () => {
-      console.log('copying files...');
-      ncp(path.join(tmpDirPath, '.'), projectDir, function (err) {
-        if (err) {
-          return console.error(err);
-        }
-        console.log('ok');
-        console.log('');
-        console.log(`removing temp dir at ${tmpDirPath} ...`);
-        rimraf(tmpDirPath, () => {
-          console.log('ok');
-          console.log('');
-          console.log(`removing package-lock.json ...`);
-          rimraf(path.join(projectDir, 'package-lock.json'), () => {
-            console.log('ok');
-            console.log('');
-            console.log('installing environment...');
-            var child_process = require('child_process');
-            child_process.execSync(`cd ${projectDir} && npm i`, { stdio: [0, 1, 2] });
-          });
-        });
-      });
-    })
-  })
-});
+}
+
+function copyTemplate(dest = projectDir) {
+  console.log(`Deploying template...`);
+  shell.cp('-R', `${tmpDirPath}/`, dest);
+  console.log('');
+}
+
+function cleanTheMess() {
+  console.log(`Cleaning the mess...`);
+  shell.rm('-rf', tmpDirPath);
+  shell.rm(path.join(projectDir, 'package-lock.json'));
+  console.log('');
+}
+
+function final() {
+  console.log('Installing environment...');
+  var child_process = require('child_process');
+  child_process.execSync(`cd ${projectDir} && npm i`, { stdio: [0, 1, 2] });
+}
+
+entry();
