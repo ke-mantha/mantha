@@ -29,7 +29,7 @@ function clearConsole() {
 
 function cloneTemplate(name) {
   console.log(`Installing template...`);
-  if (shell.exec(`git clone https://github.com/ke-mantha/mantha-template-${name}.git ${tmpDirName}`).code !== 0) {
+  if (shell.exec(`git clone https://github.com/ke-mantha/mantha-template-${name}.git ${tmpDirName} --quiet`).code !== 0) {
     shell.echo('Error: Git template clone failed');
     shell.exit(1);
   }
