@@ -6,15 +6,20 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "shelljs": "^0.8.3"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "git init $INIT_CWD/. && git remote add origin https://github.com/ke-mantha/mantha-template-default.git && git pull origin master && rm -rf $INIT_CWD/.git"
+    "postinstall": "node install.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ke-mantha/mantha.git"
+  },
+  "publishConfig": {
+    "registry": "https://nexus.kznexpress.ru/repository/ke-private/"
   },
   "author": "kaskar2008",
   "license": "MIT",
