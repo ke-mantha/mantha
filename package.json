@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/ke-mantha/mantha/issues"
   },
-  "homepage": "https://github.com/ke-mantha/mantha#readme"
+  "homepage": "https://github.com/ke-mantha/mantha#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }
