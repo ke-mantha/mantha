@@ -12,7 +12,9 @@ const packageName = pjson.name;
 
 const projectDir = process.cwd().replace(path.join('node_modules', packageName), '');
 const tmpDirName = '.tmpdir';
+const entryFileName = 'install.js';
 const tmpDirPath = path.join(__dirname, tmpDirName);
+const entryFilePath = path.join(__dirname, entryFileName);
 
 function entry() {
   // clearConsole();
@@ -56,6 +58,7 @@ function copyTemplate(dest = projectDir) {
 function cleanTheMess() {
   console.log(`Cleaning the mess...`);
   shell.rm('-rf', tmpDirPath);
+  shell.rm(entryFilePath);
   console.log('');
 }
 
