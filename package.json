@@ -12,7 +12,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "init": "node install.js"
+    "postinstall": "node install.js"
   },
   "repository": {
     "type": "git",
